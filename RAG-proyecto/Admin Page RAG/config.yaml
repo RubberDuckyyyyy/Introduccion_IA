@@ -1,0 +1,22 @@
+name: Admin Page - configuración de ambiente
+
+# Todos los .md / .txt que dejes en esta carpeta (relativa a este archivo) se
+# cargan automáticamente como documentos, uno por archivo.
+docs_dir: docs
+
+chunk_words: 80
+overlap: 15
+top_k: 3
+min_score: 0.05
+
+stopwords: [el, la, los, las, un, una, unos, unas, de, del, a, al, en, y, o, u,
+  que, se, su, sus, lo, es, son, como, para, por, con, no, si, entre, sobre,
+  cada, ese, esa, esos, esas, este, esta, estos, estas, muy, dos, más, mas,
+  the, a, an, of, to, in, on, for, is, are, be, with, and, or, this, that]
+
+# Preguntas de ejemplo (usadas por 03/04 cuando no pasas --query).
+queries:
+  - ¿cómo configuro el ambiente de admin page?
+
+# Puedes seguir añadiendo documentos aquí a mano si no quieres un archivo aparte.
+documents: []
