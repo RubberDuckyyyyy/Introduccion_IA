@@ -9,12 +9,13 @@ Docs at http://localhost:8000/docs
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Annotated
 
 import yaml
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StringConstraints
 
 # Before importing rag.google_ai, which reads the model names at import time.
 load_dotenv(Path(__file__).resolve().parent / ".env")
@@ -44,7 +45,8 @@ app.add_middleware(
 
 
 class QueryIn(BaseModel):
-    question: str = Field(min_length=1)
+    # strip first, so "   " is rejected as blank (422) instead of being embedded
+    question: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     top_k: int | None = Field(default=None, ge=1, le=20)
 
 
@@ -88,7 +90,12 @@ def health() -> dict:
         chroma = {"ok": True, "chunks": chroma_store.collection(MODEL).count()}
     except Exception as exc:  # report it, /health itself must not fail
         chroma = {"ok": False, "error": str(exc)}
-    return {"status": "ok", "embed_model": MODEL, "chroma": chroma}
+    return {
+        "status": "ok",
+        "embed_model": MODEL,
+        "google_api_key": google_ai.has_key(),
+        "chroma": chroma,
+    }
 
 
 @app.post("/ingest")

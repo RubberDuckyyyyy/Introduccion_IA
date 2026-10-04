@@ -57,9 +57,19 @@ with st.sidebar:
         else:
             st.error(api_error(resp))
 
-question = st.text_input("Pregunta", placeholder="¿cómo configuro el ambiente de admin page?")
-top_k = st.slider("top_k", 1, 10, 3)
-if question:
+if not health.get("google_api_key", True):
+    st.error("La API no tiene `GOOGLE_API_KEY`: agrégala al `.env` y reinicia uvicorn.")
+if chroma["ok"] and chroma["chunks"] == 0:
+    st.info("El corpus está vacío: sube documentos en la barra lateral y pulsa **Ingestar**.")
+
+with st.form("pregunta"):
+    question = st.text_input("Pregunta", placeholder="¿cómo configuro el ambiente de admin page?")
+    top_k = st.slider("top_k", 1, 10, 3)
+    submitted = st.form_submit_button("Preguntar", type="primary")
+
+if submitted and not question.strip():
+    st.warning("Escribe una pregunta antes de enviar.")
+elif submitted:
     with st.spinner("Buscando…"):
         resp = requests.post(
             f"{API_URL}/query", json={"question": question, "top_k": top_k}, timeout=120

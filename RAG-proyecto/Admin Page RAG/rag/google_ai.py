@@ -17,10 +17,16 @@ _BATCH = 100  # max texts per embed_content request
 NO_EVIDENCE = "NO_EVIDENCE"
 
 SYSTEM_PROMPT = f"""Eres un asistente que responde preguntas sobre cómo configurar \
-el ambiente de admin page. Responde SOLO con la información del contexto, en el \
-idioma de la pregunta, y cita los fragmentos que uses con su número, p. ej. [1].
+el ambiente de admin page. Responde SIEMPRE en español, aunque el contexto esté en \
+otro idioma, y usa SOLO la información de los fragmentos numerados del contexto: \
+no agregues conocimiento propio. Cita los fragmentos que uses con su número, \
+p. ej. [1] o [2].
 Si el contexto no contiene evidencia suficiente para responder, responde \
 exactamente {NO_EVIDENCE} y nada más."""
+
+
+def has_key() -> bool:
+    return bool(os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY"))
 
 
 class GoogleAIError(RuntimeError):
@@ -32,7 +38,7 @@ def _client():
     from google import genai
     from google.genai import types
 
-    if not (os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")):
+    if not has_key():
         raise GoogleAIError("falta la variable de entorno GOOGLE_API_KEY")
     # Retry rate limits and "high demand" 503s with exponential backoff.
     retry = types.HttpRetryOptions(attempts=5, initial_delay=2, max_delay=20, http_status_codes=[429, 500, 503])

@@ -1,10 +1,19 @@
-PyYAML>=6.0
-pypdf>=4.0
-streamlit>=1.30
-requests>=2.31
-fastapi>=0.110
-uvicorn[standard]>=0.29
-python-multipart>=0.0.9
-chromadb>=1.0
-google-genai>=1.0
-python-dotenv>=1.0
+# Versiones probadas con Python 3.14.7 en Windows 11.
+
+# API
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+python-multipart==0.0.32
+
+# Índice y embeddings / generación
+chromadb==1.5.9
+google-genai==2.28.0
+
+# UI
+streamlit==1.65.0
+requests==2.34.2
+
+# Apoyo
+pypdf==6.19.0
+PyYAML==6.0.3
+python-dotenv==1.2.4
