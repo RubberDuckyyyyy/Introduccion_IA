@@ -55,6 +55,19 @@ tres casos, de más barato a más caro:
    Si aparece ese token, la API se abstiene. Este paso atrapa las preguntas
    que se parecen al dominio pero cuya respuesta no está en los documentos.
 
+**Ejemplo de pregunta fuera de dominio — SSB9.** A la pregunta *"¿Qué necesito
+para configurar mi ambiente de SSB9?"* el sistema se abstiene (captura
+`Rag1.png`). Aunque suene parecida, SSB9 (*Self-Service Banner 9*) es una
+tecnología muy diferente a Banner Admin Pages: son las aplicaciones web de
+autoservicio para estudiantes, docentes y empleados, con su propio código,
+despliegue y configuración, mientras que Admin Pages son las páginas
+administrativas internas. Ninguno de los 6 documentos del corpus menciona
+"SSB", "SSB9" ni "Self-Service", así que no hay evidencia para responder y lo
+correcto es abstenerse en vez de rellenar con pasos de Admin Pages que no
+aplican. Es el tipo de pregunta para el que existen los pasos 2 y 3: se parece
+al dominio por vocabulario ("configurar", "ambiente"), pero su respuesta no
+está en los documentos.
+
 Los fallos de Google (falta de key, cuota, saturación) no son abstenciones:
 devuelven 503 con el motivo, tras reintentar automáticamente ante 429/500/503.
 
@@ -94,7 +107,7 @@ carpetas) y en `.env` (key y modelos; plantilla en [.env.example](.env.example))
 
 ## 6. Evidencias
 
-![UI usando Streamlit ](screenshots/Rag1.png)
+![Pregunta fuera de dominio (SSB9, tecnología distinta a Admin Pages): el sistema se abstiene](screenshots/Rag1.png)
 ![Ingestar archivo](screenshots/Rag2.png)
 ![Prueba de Fast API](screenshots/Rag3.png)
 ![Respuesta correcta del RAG sugiriendo información basada en los archivos](screenshots/Rag4.png)

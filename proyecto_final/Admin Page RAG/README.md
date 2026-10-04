@@ -26,7 +26,7 @@ Streamlit no accede a Chroma ni a Google AI: todo pasa por la API.
 
 ## Estructura
 
-El proyecto vive en `RAG-proyecto/Admin Page RAG/`. Los nombres difieren de la
+El proyecto vive en `proyecto_final/Admin Page RAG/`. Los nombres difieren de la
 estructura sugerida en la consigna; esta es la equivalencia:
 
 | Archivo | Equivale a | Qué hace |
@@ -47,7 +47,7 @@ estructura sugerida en la consigna; esta es la equivalencia:
 Requiere Python 3.14 (probado con 3.14.7 en Windows 11).
 
 ```powershell
-cd "RAG-proyecto\Admin Page RAG"
+cd "proyecto_final\Admin Page RAG"
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
