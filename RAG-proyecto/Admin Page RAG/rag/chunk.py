@@ -34,6 +34,11 @@ def _windows(words: list[str], size: int, overlap: int) -> list[list[str]]:
     return windows
 
 
+def chunk_text(text: str, size: int, overlap: int) -> list[str]:
+    """Split one text into overlapping windows of `size` words."""
+    return [" ".join(window) for window in _windows(text.split(), size, overlap)]
+
+
 def chunk_corpus(corpus: Corpus, size: int, overlap: int) -> list[Chunk]:
     chunks: list[Chunk] = []
     cid = 0

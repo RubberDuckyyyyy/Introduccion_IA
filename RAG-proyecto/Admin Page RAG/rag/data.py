@@ -48,19 +48,23 @@ def _read_pdf(file: Path) -> str:
     return "\n".join(page.extract_text() or "" for page in reader.pages).strip()
 
 
+def read_document(file: Path) -> str | None:
+    """Text of a .md/.txt/.pdf file; None if the type is unsupported."""
+    suffix = file.suffix.lower()
+    if suffix in _TEXT_EXTS:
+        return file.read_text(encoding="utf-8").strip()
+    if suffix in _PDF_EXTS:
+        return _read_pdf(file)
+    return None
+
+
 def _load_docs_dir(dir_path: Path) -> list[Document]:
     """Read every .md/.txt/.pdf file in dir_path (recursively) as one document each."""
     if not dir_path.is_dir():
         raise ValueError(f"docs_dir not found: {dir_path}")
     docs: list[Document] = []
     for file in sorted(dir_path.rglob("*")):
-        suffix = file.suffix.lower()
-        if suffix in _TEXT_EXTS:
-            text = file.read_text(encoding="utf-8").strip()
-        elif suffix in _PDF_EXTS:
-            text = _read_pdf(file)
-        else:
-            continue
+        text = read_document(file)
         if not text:
             continue
         docs.append(Document(title=file.stem, source=str(file.relative_to(dir_path)), text=text))

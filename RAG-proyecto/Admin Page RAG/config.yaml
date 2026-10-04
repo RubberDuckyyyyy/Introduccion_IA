@@ -4,10 +4,16 @@ name: Admin Page - configuración de ambiente
 # cargan automáticamente como documentos, uno por archivo.
 docs_dir: docs
 
+# Índice persistente de la API (ChromaDB). Sobrevive reinicios de FastAPI.
+chroma_dir: chroma
+
 chunk_words: 80
 overlap: 15
-top_k: 3
+top_k: 3  # vecinos por pregunta (2-5 recomendado); /query acepta top_k
 min_score: 0.05
+# Umbral para la API (similitud coseno de los embeddings de Google, no
+# bag-of-words): por debajo de esto /query se abstiene sin llamar al LLM.
+api_min_score: 0.5
 
 stopwords: [el, la, los, las, un, una, unos, unas, de, del, a, al, en, y, o, u,
   que, se, su, sus, lo, es, son, como, para, por, con, no, si, entre, sobre,
