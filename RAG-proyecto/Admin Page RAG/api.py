@@ -11,11 +11,15 @@ from __future__ import annotations
 from pathlib import Path
 
 import yaml
+from dotenv import load_dotenv
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from rag import chroma_store, google_ai
+# Before importing rag.google_ai, which reads the model names at import time.
+load_dotenv(Path(__file__).resolve().parent / ".env")
+
+from rag import chroma_store, google_ai  # noqa: E402
 from rag.chunk import chunk_text
 from rag.data import read_document
 

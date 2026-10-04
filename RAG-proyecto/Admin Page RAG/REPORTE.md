@@ -17,6 +17,8 @@ conexión a bases Oracle y PostgreSQL. Son guías técnicas paso a paso, en ingl
 | `settup eclipse 6.pdf` — Admin Pages 9.x en la máquina local | 18 | 1 855 | 29 |
 | **Total (6 documentos)** | **90** | **10 805** | **168** |
 
+![Interfaz de Streamlit con los documentos del corpus](screenshots/Rag1.png)
+
 **Modelo de embedding:** `gemini-embedding-001` (Google AI), vectores de 3 072
 dimensiones. Detalle del corpus en [CORPUS.md](CORPUS.md).
 

@@ -2,7 +2,7 @@
 
 Asistente de preguntas y respuestas sobre "cómo configurar el ambiente de
 admin page", construido sobre el pipeline de [RAG/project](../RAG/project):
-embeddings bag-of-words + k-NN exacto, sin API externa ni LLM. La respuesta es
+embeddings bag-of-words + k-NN exacto. La respuesta es
 extractiva (cita y pega las oraciones más relevantes del contexto recuperado);
 si no hay evidencia suficiente, el sistema se abstiene en vez de inventar.
 
@@ -60,8 +60,12 @@ Versión con embeddings de Google AI, Chroma persistente (`chroma/`, configurabl
 respuestas generadas por Gemini. Necesita una API key de
 [Google AI Studio](https://aistudio.google.com/apikey).
 
+Configura la key copiando [.env.example](.env.example) como `.env` y
+completando `GOOGLE_API_KEY` (o definiéndola como variable de entorno, que
+tiene prioridad):
+
 ```powershell
-$env:GOOGLE_API_KEY = "tu-key"
+Copy-Item .env.example .env              # luego edita .env
 uvicorn api:app --reload --port 8000     # terminal 1, docs en localhost:8000/docs
 streamlit run app.py                     # terminal 2, localhost:8501
 ```

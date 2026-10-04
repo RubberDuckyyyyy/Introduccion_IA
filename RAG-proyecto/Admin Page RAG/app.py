@@ -9,10 +9,13 @@ Start the API first, then:
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import requests
 import streamlit as st
+from dotenv import load_dotenv
 
+load_dotenv(Path(__file__).resolve().parent / ".env")
 API_URL = os.getenv("API_URL", "http://localhost:8000")
 ALLOWED = ["md", "markdown", "txt", "pdf"]
 
