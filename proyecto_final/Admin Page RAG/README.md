@@ -75,10 +75,10 @@ proyecto:
 
 ```powershell
 # Terminal 1: API (documentación interactiva en http://localhost:8000/docs)
-uvicorn api:app --reload --port 8000
+python -m uvicorn api:app --reload --port 8000
 
 # Terminal 2: UI (se abre en http://localhost:8501)
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 ## 4. Probar una pregunta
